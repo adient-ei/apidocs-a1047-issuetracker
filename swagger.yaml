@@ -4,6 +4,7 @@ info:
   version: 1.0.0
 servers:
   - url: https://apigatewayqa.adient.com/v1/issuetracker
+    description: Quality
 security:
   - ApiKeyAuth: []
 paths:
