@@ -1,0 +1,359 @@
+openapi: 3.0.1
+info:
+  title: IssueTracker APIs
+  version: 1.0.0
+servers:
+  - url: https://apigatewayqa.adient.com/v1/issuetracker
+security:
+  - ApiKeyAuth: []
+paths:
+  /IssuesByProgram:
+    post:
+      tags:
+        - Get Issues
+      summary: Get Issues By Program Id
+      description: Get Issues By Program Id and Launch Id
+      operationId: GetIssuesByProgramIdLaunchId
+      parameters:
+        - name: programid
+          in: query
+          description: Program Id
+          required: true
+          schema:
+            type: number
+            example: 3739372
+        - name: launchid
+          in: query
+          description: Launch Id
+          required: true
+          schema:
+            type: number
+            example: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                  - Issuess
+                  - autoProgramName
+                  - productLaunchId
+                  - programBaseId
+                  - programId
+                type: object
+                properties:
+                  programBaseId:
+                    type: number
+                  programId:
+                    type: number
+                  autoProgramName:
+                    minLength: 1
+                    type: string
+                  productLaunchId:
+                    type: number
+                  Issuess:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                        - CalculateGUID
+                        - externalShare
+                        - functionalArea
+                        - impactType
+                        - interimCorrectiveAction
+                        - issueCreatedBy
+                        - issueCreatedDate
+                        - issueDescription
+                        - issueId
+                        - issuePlannedClosedDate
+                        - issueResponsible
+                        - permanentCorrectiveAction
+                        - priority
+                        - problemStatement
+                        - programTop5
+                        - risk
+                        - rootCause
+                        - state
+                      type: object
+                      properties:
+                        issueId:
+                          type: number
+                        issueCreatedDate:
+                          minLength: 1
+                          type: string
+                        issueCreatedBy:
+                          minLength: 1
+                          type: string
+                        risk:
+                          minLength: 1
+                          type: string
+                        priority:
+                          minLength: 1
+                          type: string
+                        state:
+                          minLength: 1
+                          type: string
+                        issueDescription:
+                          minLength: 1
+                          type: string
+                        problemStatement:
+                          minLength: 1
+                          type: string
+                        rootCause:
+                          minLength: 1
+                          type: string
+                        interimCorrectiveAction:
+                          minLength: 1
+                          type: string
+                        permanentCorrectiveAction:
+                          minLength: 1
+                          type: string
+                        issueResponsible:
+                          minLength: 1
+                          type: string
+                        issuePlannedClosedDate:
+                          minLength: 1
+                          type: string
+                        externalShare:
+                          minLength: 1
+                          type: string
+                        programTop5:
+                          minLength: 1
+                          type: string
+                        impactType:
+                          minLength: 1
+                          type: string
+                        functionalArea:
+                          minLength: 1
+                          type: string
+                        CalculateGUID:
+                          minLength: 1
+                          type: string
+                description: ''
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                description: ''
+                properties:
+                  code:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Invalid Authorization key for resource
+  /IssuesByGuid:
+    post:
+      tags:
+        - Get Issues
+      summary: Get Issues by Created By
+      description: Get Issues by Created By Global Id
+      operationId: GetIssuesByGuid
+      parameters:
+        - name: createdby
+          in: query
+          description: Created By Global Id
+          required: true
+          schema:
+            type: string
+            example: globalid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                description: ''
+                items:
+                  required:
+                    - Issuess
+                    - autoProgramName
+                    - productLaunchId
+                    - programBaseId
+                    - programId
+                  type: object
+                  properties:
+                    programBaseId:
+                      type: number
+                    programId:
+                      type: number
+                    autoProgramName:
+                      minLength: 1
+                      type: string
+                    productLaunchId:
+                      type: number
+                    Issuess:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                          - CalculateGUID
+                          - Complete_Percentage
+                          - RevisedClosedDate
+                          - externalShare
+                          - functionalArea
+                          - impactType
+                          - interimCorrectiveAction
+                          - issueCreatedBy
+                          - issueCreatedDate
+                          - issueDescription
+                          - issueId
+                          - issuePlannedClosedDate
+                          - issueResponsible
+                          - permanentCorrectiveAction
+                          - priority
+                          - problemStatement
+                          - programTop5
+                          - risk
+                          - rootCause
+                          - state
+                        type: object
+                        properties:
+                          issueId:
+                            type: number
+                          issueCreatedDate:
+                            minLength: 1
+                            type: string
+                          issueCreatedBy:
+                            minLength: 1
+                            type: string
+                          risk:
+                            minLength: 1
+                            type: string
+                          priority:
+                            minLength: 1
+                            type: string
+                          state:
+                            minLength: 1
+                            type: string
+                          issueDescription:
+                            minLength: 1
+                            type: string
+                          problemStatement:
+                            minLength: 1
+                            type: string
+                          rootCause:
+                            minLength: 1
+                            type: string
+                          interimCorrectiveAction:
+                            minLength: 1
+                            type: string
+                          permanentCorrectiveAction:
+                            minLength: 1
+                            type: string
+                          issueResponsible:
+                            minLength: 1
+                            type: string
+                          issuePlannedClosedDate:
+                            minLength: 1
+                            type: string
+                          externalShare:
+                            minLength: 1
+                            type: string
+                          programTop5:
+                            minLength: 1
+                            type: string
+                          RevisedClosedDate:
+                            minLength: 1
+                            type: string
+                          impactType:
+                            minLength: 1
+                            type: string
+                          functionalArea:
+                            minLength: 1
+                            type: string
+                          CalculateGUID:
+                            minLength: 1
+                            type: string
+                          Complete_Percentage:
+                            minLength: 1
+                            type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                description: ''
+                properties:
+                  code:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Invalid Authorization key for resource
+  /IssuesCountByStatus:
+    post:
+      tags:
+        - Get Issues
+      summary: Get Issue Counts by Status
+      description: Get Issues By Status
+      operationId: IssuesCountByStatus
+      parameters:
+        - name: programid
+          in: query
+          description: Program Id
+          required: true
+          schema:
+            type: number
+            example: 1016062
+        - name: launchid
+          in: query
+          description: Launch Id
+          required: true
+          schema:
+            type: number
+            example: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                required:
+                  - closedissues
+                  - delayedissues
+                  - launchId
+                  - openissues
+                  - programId
+                type: object
+                properties:
+                  programId:
+                    type: number
+                  launchId:
+                    type: number
+                  openissues:
+                    type: number
+                  closedissues:
+                    type: number
+                  delayedissues:
+                    type: number
+                description: ''
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                description: ''
+                properties:
+                  code:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Invalid Authorization key for resource
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
