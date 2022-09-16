@@ -11,9 +11,9 @@ paths:
   /IssuesByProgram:
     post:
       tags:
-        - Get Issues
-      summary: Get Issues By Program Id
-      description: Get Issues By Program Id and Launch Id
+        - Get and Create Issues
+      summary: Get and Create Issues
+      description: This endpoint is used to get and create issues. The below details are for getting the issues by Launch and Program Id
       operationId: GetIssuesByProgramIdLaunchId
       parameters:
         - name: programid
@@ -352,9 +352,237 @@ paths:
                   message:
                     type: string
                     example: Invalid Authorization key for resource
+  /Issue:
+    post:
+      tags:
+      - Create Issues
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Program_2'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      x-codegen-request-body-name: updateIssueObj
+  /IssueStatisticsEngineering:
+    post:
+      tags:
+      - Get Issue Statistics
+      parameters:
+      - name: ProgramId
+        in: query
+        schema:
+          type: integer
+      - name: LaunchId
+        in: query
+        schema:
+          type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
 components:
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       name: Authorization
       in: header
+  schemas:
+    Program_2:
+      title: Program
+      type: object
+      properties:
+        programBaseId:
+          type: integer
+          format: int32
+        programId:
+          type: integer
+          format: int32
+        autoProgramName:
+          type: string
+        productLaunchId:
+          type: integer
+          format: int32
+        Issuess:
+          type: array
+          items:
+            title: Issues
+            type: object
+            properties:
+              issueId:
+                type: integer
+                format: int32
+              issueCreatedDate:
+                type: string
+                format: date-time
+              issueCreatedBy:
+                type: string
+              risk:
+                type: string
+                enum:
+                - TBD
+                - N_A
+                - R
+                - Y
+                - G
+                - B
+              priority:
+                type: string
+                enum:
+                - Safety
+                - A
+                - B
+                - C
+              state:
+                type: string
+                enum:
+                - OPEN
+                - CLOSED
+                - Cancelled
+              issueDescription:
+                type: string
+              problemStatement:
+                type: string
+              rootCause:
+                type: string
+              interimCorrectiveAction:
+                type: string
+              permanentCorrectiveAction:
+                type: string
+              issueResponsible:
+                type: string
+              issuePlannedClosedDate:
+                type: string
+                format: date-time
+              issueActualClosedDate:
+                type: string
+                format: date-time
+              externalShare:
+                type: string
+                enum:
+                - Yes
+                - No
+              programTop5:
+                type: string
+                enum:
+                - Yes
+                - No
+              copqValue:
+                type: number
+              plantTop5:
+                type: string
+                enum:
+                - P1
+                - P2
+                - P3
+                - P4
+                - P5
+              RevisedClosedDate:
+                type: string
+                format: date-time
+              initiatedBy:
+                type: string
+                enum:
+                - Customer
+                - Adient
+                - Supplier
+              functionalArea:
+                type: string
+                enum:
+                - Commercial
+                - Engineering
+                - Finance
+                - Industrial_Design
+                - Manufacturing
+                - Materials
+                - Quality
+                - Customer
+                - Engineering_SMTE_Products
+                - General_Management
+                - Launch_Management
+                - Plant_Operations
+                - Purchasing
+                - Supplier
+                - Program_Management
+              Actions:
+                type: array
+                items:
+                  title: Action
+                  type: object
+                  properties:
+                    plannedCloseDate:
+                      type: string
+                      format: date-time
+                    revisedCloseDate:
+                      type: string
+                      format: date-time
+                    actualCloseDate:
+                      type: string
+                      format: date-time
+                    actionStepDescription:
+                      type: string
+                    actionStepState:
+                      type: string
+                      enum:
+                      - OPEN
+                      - CLOSED
+                      - Cancelled
+                    actionStepResponsible:
+                      type: string
+                    actionStepCreatedBy:
+                      type: string
+                    actionStepCreatedDate:
+                      type: string
+                      format: date-time
+                  xml:
+                    name: Action
+              Commentss:
+                type: array
+                items:
+                  title: Comments
+                  type: object
+                  properties:
+                    comment:
+                      type: string
+                    addedBy:
+                      type: string
+                    createdOn:
+                      type: string
+                      format: date-time
+                  xml:
+                    name: Comments
+              ActionNotes:
+                type: array
+                items:
+                  title: ActionNote
+                  type: object
+                  properties:
+                    note:
+                      type: string
+                    addedby:
+                      type: string
+                  xml:
+                    name: ActionNote
+              Complete_Percentage:
+                type: string
+                enum:
+                - _0
+                - _25
+                - _50
+                - _75
+                - _100
+            xml:
+              name: Issues
+      xml:
+        name: Program
