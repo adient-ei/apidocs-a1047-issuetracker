@@ -480,7 +480,7 @@ paths:
   /IssuesEnabledtoLLDB:
     post:
       tags:
-      - Get Issue Statistics
+      - Get Issues
       parameters:
       - name: TimeStamptoGetIssuestoLLDB
         in: query
